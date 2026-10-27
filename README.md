@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # UNO Discord Botu
 
 Components V2 arayüzlü, masa / el / lobi / profil görselleri Puppeteer ile çizilen UNO botu.
@@ -37,3 +38,6 @@ Klasik UNO + +2/+4 istifleme, ilk +4'e itiraz, atlama (birebir aynı kartla sır
 ## Test
 `npm test` sahte Discord ile baştan sona bir oyun oynatır, Components V2 yüklerini doğrular (limitler, Unicode emoji taraması) ve görselleri `test/out/flow` içine yazar.
 `node test/engine.js` oyun motorunu 600 rastgele oyunla sınar.
+=======
+# Discord-Uno-Bot
+>>>>>>> 3b0ff5817c804230bc2942b2ad1ec3c89fbe6b8b
