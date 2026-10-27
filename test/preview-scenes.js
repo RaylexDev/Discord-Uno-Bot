@@ -1,0 +1,20 @@
+import fs from 'node:fs';
+import { closeRenderer } from '../src/render/renderer.js';
+import * as S from '../src/render/scenes.js';
+import { makeGame, fakeAvatar, NAMES } from './mock.js';
+import { Card } from '../src/game/Card.js';
+
+const out = async (name, p) => { const t = Date.now(); const b = await p; fs.writeFileSync(`test/out/${name}.webp`, b); console.log(name, b.length, Date.now() - t, 'ms'); };
+const g = makeGame(6);
+const me = g.currentPlayer;
+await out('lobby', S.renderLobby({ players: g.players.slice(0, 4), maxPlayers: 10, hostId: g.players[0].id, options: g.options }));
+await out('hand', S.renderHand({ cards: me.hand.map((c) => ({ card: c, playable: g.playableCards(me).includes(c) })), top: g.top, activeColor: g.activeColor, isTurn: true, newCardId: me.hand[2].id }));
+const big = makeGame(3); const bp = big.currentPlayer; for (let i = 0; i < 14; i++) bp.hand.push(...big.deck.draw(1));
+await out('hand_big', S.renderHand({ cards: bp.hand.map((c) => ({ card: c, playable: big.playableCards(bp).includes(c) })), top: big.top, activeColor: big.activeColor, isTurn: false }));
+const ranking = g.players.map((p, i) => ({ id: p.id, name: p.name, avatarUrl: p.avatarUrl, cards: i === 0 ? 0 : i * 2 }));
+await out('winner', S.renderWinner({ winner: ranking[0], ranking, duration: 412, turns: 57, points: 83, reason: 'normal' }));
+await out('profile', S.renderProfile({ name: 'Elif Naz', avatarUrl: fakeAvatar(2), rank: 3, s: { games: 48, wins: 19, streak: 3, bestStreak: 6, cardsPlayed: 612, powersUsed: 41, unoCalls: 22, cardsDrawn: 540, caught: 4, fastestWin: 187, xp: 1450 } }));
+await out('leaderboard', S.renderLeaderboard({ entries: NAMES.slice(0, 9).map((n, i) => ({ name: n, avatarUrl: i % 2 ? fakeAvatar(i) : null, wins: 40 - i * 4, rate: 70 - i * 6 })) }));
+await out('guide', S.renderGuide());
+await out('banner', S.renderBanner({ title: 'YARDIM MERKEZİ', subtitle: 'Komutlar, kurallar ve güç kartları', icon: 'book' }));
+await closeRenderer();
