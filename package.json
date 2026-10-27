@@ -1,0 +1,19 @@
+{
+  "name": "uno-discord-bot",
+  "version": "2.0.0",
+  "description": "UNO Discord botu: Components V2 arayuzu, Puppeteer ile cizilen kartlar ve masa gorselleri.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test/run.js",
+    "preview": "node test/preview.js"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.0",
+    "@fontsource/poppins": "^5.2.0",
+    "discord.js": "^14.22.1",
+    "puppeteer": "^24.0.0"
+  },
+  "engines": { "node": ">=20.0.0" }
+}
